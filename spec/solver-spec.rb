@@ -1,28 +1,65 @@
 require_relative '../solver'
 
 describe Solver do
-  context 'testing for factorial, reverse and fizzbuzz' do
-    before :each do
-      @solver = Solver.new
+  before(:each) do
+    @solver = Solver.new
+  end
+
+  describe "#factorial" do
+    it "returns 1 for 0" do
+      expect(@solver.factorial(0)).to eq(1)
     end
-    it 'creates a new instance of Solver class' do
-      expect(@solver).to be_instance_of Solver
+
+    it "returns 1 for 1" do
+      expect(@solver.factorial(1)).to eq(1)
     end
 
-    describe '#factorial' do
-      it 'checks if argument is only one' do
-        expect(@solver.factorial(6, 8)).to raise_error ArgumentError
-      end
-
-      it 'checks if factorial of 0 is 1' do
-        expect(@solver.factorial(0)).to eql 1
-      end
-
-      it 'checks if the argument is not a negative number' do
-        expect(@solver.factorial(-2)).to raise_error 'use positive integers only'
-      end
-
-      it 'checks if factorial works as expected' do
-        expect(@solver.factorial(5)).to eql 120
-      end
+    it "returns 120 for 5" do
+      expect(@solver.factorial(5)).to eq(120)
     end
+
+    it "raises an exception for negative integer" do
+      expect { @solver.factorial(-1) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe "#reverse" do
+    it "returns an empty string for an empty string" do
+      expect(@solver.reverse("")).to eq("")
+    end
+
+    it "returns the reversed string for a non-empty string" do
+      expect(@solver.reverse("hello")).to eq("olleh")
+    end
+
+    it "returns the reversed string for a palindrome" do
+      expect(@solver.reverse("racecar")).to eq("racecar")
+    end
+  end
+
+  describe "#fizzbuzz" do
+    it "returns the number as a string when not divisible by 3 or 5" do
+      expect(@solver.fizzbuzz(1)).to eq("1")
+      expect(@solver.fizzbuzz(2)).to eq("2")
+      expect(@solver.fizzbuzz(4)).to eq("4")
+    end
+
+    it "returns fizz when divisible by 3" do
+      expect(@solver.fizzbuzz(3)).to eq("fizz")
+      expect(@solver.fizzbuzz(6)).to eq("fizz")
+      expect(@solver.fizzbuzz(9)).to eq("fizz")
+    end
+
+    it "returns buzz when divisible by 5" do
+      expect(@solver.fizzbuzz(5)).to eq("buzz")
+      expect(@solver.fizzbuzz(10)).to eq("buzz")
+      expect(@solver.fizzbuzz(20)).to eq("buzz")
+    end
+
+    it "returns fizzbuzz when divisible by 3 and 5" do
+      expect(@solver.fizzbuzz(15)).to eq("fizzbuzz")
+      expect(@solver.fizzbuzz(30)).to eq("fizzbuzz")
+      expect(@solver.fizzbuzz(45)).to eq("fizzbuzz")
+    end
+  end
+end
