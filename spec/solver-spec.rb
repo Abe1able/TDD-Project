@@ -1,4 +1,5 @@
 require_relative '../solver'
+
 describe Solver do
   context 'testing for factorial, reverse and fizzbuzz' do
     before :each do
